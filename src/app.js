@@ -17,8 +17,8 @@ export class Api{
     conectarBD(){
         establecerConexionDB()
     }
-    // procesarPeticiones(){
-    //     this.app.use(express.json())
+   procesarPeticiones(){
+     this.app.use(express.json())
     //      this.app.use("/", routes)
-    // }
+     }
 }
