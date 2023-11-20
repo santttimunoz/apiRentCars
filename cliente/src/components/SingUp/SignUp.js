@@ -17,7 +17,7 @@ export function SignUp() {
   const guardar = async () => {
     try {
       // Realizar la solicitud POST a la API para registrar el usuario
-      const response = await axios.post('https://localhost:4000/api/user', {
+      const response = await axios.post('https://api-rent-cars.vercel.app/api/user', {
         name,
         userName,
         role,
