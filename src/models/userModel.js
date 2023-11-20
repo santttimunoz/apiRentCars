@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
 
-const user = Schema({
+const user = new Schema({
     name :{
         type: String,
         required: true
@@ -16,7 +16,7 @@ const user = Schema({
         required: true
     },
     role :{
-        type: Number,
+        type: String,
         required: true
     },
     secretWord :{

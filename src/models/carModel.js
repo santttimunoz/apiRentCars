@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
 
-const car = Schema({
+const car = new Schema({
     plateNumber :{
         type: Number,
         required: true
@@ -21,5 +21,4 @@ const car = Schema({
     }
 })
 
-const carModel = mongoose.model('cars', car)
-export { carModel }
+export const carModel = mongoose.model('cars', car)

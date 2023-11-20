@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
 
-const rent = Schema({
+const rent = new Schema({
     rentNumber :{
         type: Number,
         required: true
