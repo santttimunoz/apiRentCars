@@ -13,7 +13,8 @@ export class UserService{
      await userModel.findByIdAndUpdate(id, data)        
     }
     async UserShow(){}
-    async UsersShow(){
-       return await userModel.find()
+    async UsersShow(){     
+        let users = userModel.find()   
+        return users
     }
 }

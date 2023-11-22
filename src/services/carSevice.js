@@ -3,7 +3,7 @@ import { carModel } from "../models/carModel.js";
 export class CarService {
   constructor() {}
   async CarSave(data) {
-    let car = await carModel(data);
+    let car = new carModel(data);
     return await car.save();
   }
   async CarDelete(id) {

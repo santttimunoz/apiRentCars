@@ -2,29 +2,57 @@ import axios from "axios";
 import { useState } from "react";
 import { View, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Ventana } from "../ventana/Ventana";
 
 import { Text, TextInput, Button, RadioButton } from "react-native-paper";
 import { styles } from "../../../assets/CSS/styles";
 
+
 export function SignUp() {
+
+  const [errorMessage, setErrorMessage] = useState('')
+  const[modalVisible, setModalVisible] = useState(false)
   const navigation = useNavigation();
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [secret, setSecret] = useState("");
+  const [secretWord, setSecretWord] = useState("");
+
+  const closeModal = ()=>{
+    setModalVisible(false)
+}  
 
   const guardar = async () => {
     try {
-      // Realizar la solicitud POST a la API para registrar el usuario
-      const response = await axios.post('https://api-rent-cars.vercel.app/api/user', {
+      const responseget = await axios.get('http://localhost:4000/api/users')
+
+      if(userName == "" || password == "" || role == "" || secretWord == "" || name == ""){
+        setErrorMessage("debe llenar los campos")
+        setModalVisible(true)
+      }else if(userName == responseget.userName){
+        setErrorMessage("usuario ya existe")
+        setModalVisible(true)
+      }
+      else{
+         // Realizar la solicitud POST a la API para registrar el usuario
+      const response = await axios.post('http://localhost:4000/api/user', {
         name,
         userName,
         role,
         password,
-        secret
+        secretWord
       });
+      
+      if(response){
+      navigation.navigate("LogIn")
+      }     
 
+      setName("")
+      setUserName("")
+      setPassword("")
+      setRole("")
+      setSecretWord("")
       // Manejar la respuesta de la API según tus necesidades
       console.log('Respuesta de la API:', response.data);
 
@@ -33,6 +61,8 @@ export function SignUp() {
 
       // Redirigir a la pantalla de inicio de sesión
       navigation.navigate('LogIn');
+      }
+     
     } catch (error) {
       // Manejar errores de la API
       console.error('Error al registrar el usuario:', error);
@@ -91,8 +121,8 @@ export function SignUp() {
             autoFocus
             label="secretWord"
             left={<TextInput.Icon icon="lock" />}
-            onChangeText={(secret) => setSecret(secret)}
-            value={secret}
+            onChangeText={(secretWord) => setSecretWord(secretWord)}
+            value={secretWord}
           />
           <Button
             style={{ marginTop: 20, backgroundColor: "black" }}
@@ -101,7 +131,7 @@ export function SignUp() {
             onPress={guardar}
           >
             Registrar
-          </Button>
+          </Button>          
           <Text style={{ textAlign: "center", marginTop: 10 }}>
             Ya tienes una cuenta?{" "}
             <Text
@@ -111,6 +141,7 @@ export function SignUp() {
               Inicia Sesion
             </Text>
           </Text>
+          {modalVisible && <Ventana modalVisible={modalVisible} closeModal={closeModal} message={errorMessage}/>}
         </View>
       </View>
     </>

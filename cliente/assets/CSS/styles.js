@@ -9,4 +9,13 @@ const styles = StyleSheet.create({
     },
   });
 
-  export { styles }
+  const window = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
+
+  export { styles, window }
